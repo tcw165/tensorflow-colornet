@@ -24,9 +24,8 @@ class MidLvFeatNet:
             hidden_layer = tf.nn.bias_add(hidden_layer,
                                           self._model["conv1_b"],
                                           name="conv1_b")
-            # TODO: Not sure to use ReLu or Sigmoid transfer function.
-            hidden_layer = tf.nn.sigmoid(hidden_layer,
-                                         name="sigmoid1")
+            hidden_layer = tf.nn.relu(hidden_layer,
+                                      name="relu1")
 
             hidden_layer = tf.nn.conv2d(hidden_layer,
                                         self._model["conv2_w"],
@@ -37,9 +36,8 @@ class MidLvFeatNet:
             hidden_layer = tf.nn.bias_add(hidden_layer,
                                           self._model["conv2_b"],
                                           name="conv2_b")
-            # TODO: Not sure to use ReLu or Sigmoid transfer function.
-            self._output = tf.nn.sigmoid(hidden_layer,
-                                         name="sigmoid2")
+            self._output = tf.nn.relu(hidden_layer,
+                                      name="relu2")
 
     @property
     def output(self):

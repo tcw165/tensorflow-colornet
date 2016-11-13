@@ -5,8 +5,8 @@ import tensorflow as tf
 class GlobalFeatNet:
     _model = None
 
-    _output_2 = None
-    _output_1 = None
+    _output_512 = None
+    _output_256 = None
 
     def __init__(self,
                  input_tensor,
@@ -27,9 +27,8 @@ class GlobalFeatNet:
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["conv1_b"],
                                               name="conv1_b")
-                # TODO: Not sure to use ReLu or Sigmoid transfer function.
-                hidden_layer = tf.nn.sigmoid(hidden_layer,
-                                             name="sigmoid1")
+                hidden_layer = tf.nn.relu(hidden_layer,
+                                          name="relu1")
 
                 # C-layer 2.
                 hidden_layer = tf.nn.conv2d(hidden_layer,
@@ -41,9 +40,8 @@ class GlobalFeatNet:
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["conv2_b"],
                                               name="conv2_b")
-                # TODO: Not sure to use ReLu or Sigmoid transfer function.
-                hidden_layer = tf.nn.sigmoid(hidden_layer,
-                                             name="sigmoid2")
+                hidden_layer = tf.nn.relu(hidden_layer,
+                                          name="relu2")
 
                 # C-layer 3.
                 hidden_layer = tf.nn.conv2d(hidden_layer,
@@ -55,9 +53,8 @@ class GlobalFeatNet:
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["conv3_b"],
                                               name="conv3_b")
-                # TODO: Not sure to use ReLu or Sigmoid transfer function.
-                hidden_layer = tf.nn.sigmoid(hidden_layer,
-                                             name="sigmoid3")
+                hidden_layer = tf.nn.relu(hidden_layer,
+                                          name="relu3")
 
                 # C-layer 4.
                 hidden_layer = tf.nn.conv2d(hidden_layer,
@@ -69,9 +66,8 @@ class GlobalFeatNet:
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["conv4_b"],
                                               name="conv4_b")
-                # TODO: Not sure to use ReLu or Sigmoid transfer function.
-                hidden_layer = tf.nn.sigmoid(hidden_layer,
-                                             name="sigmoid4")
+                hidden_layer = tf.nn.relu(hidden_layer,
+                                          name="relu4")
 
                 # Ready to the FC layers and squash the n-d data to vector.
                 shape = hidden_layer.get_shape().as_list()
@@ -88,8 +84,8 @@ class GlobalFeatNet:
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["fc5_b"],
                                               name="fc5_b")
-                hidden_layer = tf.nn.sigmoid(hidden_layer,
-                                             name="sigmoid5")
+                hidden_layer = tf.nn.relu(hidden_layer,
+                                          name="relu5")
 
                 # FC layer 6.
                 hidden_layer = tf.matmul(hidden_layer,
@@ -98,32 +94,32 @@ class GlobalFeatNet:
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["fc6_b"],
                                               name="fc6_b")
-                self._output_2 = tf.nn.sigmoid(hidden_layer,
-                                               name="sigmoid6")
+                self._output_512 = tf.nn.relu(hidden_layer,
+                                              name="relu6")
 
                 # FC layer 7.
-                hidden_layer = tf.matmul(self._output_2,
+                hidden_layer = tf.matmul(self._output_512,
                                          self._model["fc7_w"],
                                          name="fc7_w")
                 hidden_layer = tf.nn.bias_add(hidden_layer,
                                               self._model["fc7_b"],
                                               name="fc7_b")
-                self._output_1 = tf.nn.sigmoid(hidden_layer,
-                                               name="sigmoid7")
+                self._output_256 = tf.nn.relu(hidden_layer,
+                                              name="relu7")
 
     @property
-    def output_1(self):
+    def output_256(self):
         """
         The last layer of the network.
         """
-        return self._output_1
+        return self._output_256
 
     @property
-    def output_2(self):
+    def output_512(self):
         """
         The layer before the last layer of the network.
         """
-        return self._output_2
+        return self._output_512
 
     def _init_model(self, model_path=None):
         # Determine the model (either from scratch or load pre-trained data).

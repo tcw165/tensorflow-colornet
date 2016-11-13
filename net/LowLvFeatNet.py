@@ -29,7 +29,7 @@ class LowLvFeatNet:
             # Init the model.
             self._init_model(model_path)
 
-            # Build the graph.
+            # Use the shared weights and biases to build the graph.
             self._output_fixed = self._build_graph(dynamic_size_input)
             self._output_dynamic = self._build_graph(fixed_size_input)
 
@@ -80,7 +80,7 @@ class LowLvFeatNet:
         # C-layer 1.
         hidden_layer = tf.nn.conv2d(input_tensor,
                                     self._model["conv1_w"],
-                                    strides=[2, 2, 1, 1],
+                                    strides=[1, 2, 2, 1],
                                     padding="SAME",
                                     data_format="NHWC",
                                     name="conv1_w")
@@ -108,7 +108,7 @@ class LowLvFeatNet:
         # C-layer 3.
         hidden_layer = tf.nn.conv2d(hidden_layer,
                                     self._model["conv3_w"],
-                                    strides=[2, 2, 1, 1],
+                                    strides=[1, 2, 2, 1],
                                     padding="SAME",
                                     data_format="NHWC",
                                     name="conv3_w")
@@ -136,7 +136,7 @@ class LowLvFeatNet:
         # C-layer 5.
         hidden_layer = tf.nn.conv2d(hidden_layer,
                                     self._model["conv5_w"],
-                                    strides=[2, 2, 1, 1],
+                                    strides=[1, 2, 2, 1],
                                     padding="SAME",
                                     data_format="NHWC",
                                     name="conv5_w")
