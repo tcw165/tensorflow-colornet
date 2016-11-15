@@ -4,6 +4,8 @@ The Image Colorization Network
 ![...](demo/fig-01.png)
 ![...](demo/fig-02.png)
 
+[[paper](http://hi.cs.waseda.ac.jp/~iizuka/projects/colorization/data/colorization_sig2016.pdf)]
+
 The Tensorflow version of the [ColorNet](http://hi.cs.waseda.ac.jp/~iizuka/projects/colorization/en/) issued on SIGGRAPH 2016. Please check out the original website for the details.
 
 They have done the good job and provide the implementation of Torch version. I know nothing about the Torch but I know a bit of Tensorflow, so this is for the Tensorflow developers. The project is still on going, feel free to contribute it.
