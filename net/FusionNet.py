@@ -77,7 +77,7 @@ class FusionNet:
         if model_path is None:
             self._model = {
                 # H x W x In x Out
-                "fusion_w": tf.Variable(tf.truncated_normal([256, 512])),
+                "fusion_w": tf.Variable(tf.truncated_normal([512, 256])),
                 "fusion_b": tf.Variable(tf.truncated_normal([256]))
             }
         else:

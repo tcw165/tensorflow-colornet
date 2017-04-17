@@ -93,16 +93,22 @@ class UpSizeColorNet:
         if model_path is None:
             self._model = {
                 # H x W x In x Out
-                "conv1_w": tf.Variable(tf.truncated_normal([3, 3, 256, 128])),
-                "conv1_b": tf.Variable(tf.truncated_normal([128])),
-                "conv2_w": tf.Variable(tf.truncated_normal([3, 3, 128, 64])),
-                "conv2_b": tf.Variable(tf.truncated_normal([64])),
-                "conv3_w": tf.Variable(tf.truncated_normal([3, 3, 64, 64])),
-                "conv3_b": tf.Variable(tf.truncated_normal([64])),
-                "conv4_w": tf.Variable(tf.truncated_normal([3, 3, 64, 32])),
-                "conv4_b": tf.Variable(tf.truncated_normal([32])),
-                "conv5_w": tf.Variable(tf.truncated_normal([3, 3, 32, 2])),
-                "conv5_b": tf.Variable(tf.truncated_normal([2]))
+                "conv1_w": tf.Variable(tf.truncated_normal([3, 3, 512, 256])),
+                "conv1_b": tf.Variable(tf.truncated_normal([256])),
+                "conv2_w": tf.Variable(tf.truncated_normal([3, 3, 256, 128])),
+                "conv2_b": tf.Variable(tf.truncated_normal([128])),
+                "upsample3_w": tf.Variable(tf.truncated_normal([3, 3, 128, 128])),
+                "upsample3_b": tf.Variable(tf.truncated_normal([128])),
+                "conv4_w": tf.Variable(tf.truncated_normal([3, 3, 128, 64])),
+                "conv4_b": tf.Variable(tf.truncated_normal([64])),
+                "conv5_w": tf.Variable(tf.truncated_normal([3, 3, 64, 64])),
+                "conv5_b": tf.Variable(tf.truncated_normal([64])),
+                "upsample6_w": tf.Variable(tf.truncated_normal([3, 3, 64, 64])),
+                "upsample6_b": tf.Variable(tf.truncated_normal([64])),
+                "conv7_w": tf.Variable(tf.truncated_normal([3, 3, 64, 32])),
+                "conv7_b": tf.Variable(tf.truncated_normal([32])),
+                "conv8_w": tf.Variable(tf.truncated_normal([3, 3, 32, 2])),
+                "conv8_b": tf.Variable(tf.truncated_normal([2]))
             }
         else:
             # TODO: Support loading the pre-trained model.
